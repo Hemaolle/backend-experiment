@@ -5,6 +5,6 @@ public class Button : MonoBehaviour {
 
 	public void TestCoroutiner()
 	{
-        ApiRequest.TestCoroutiner();
+        Api.Request("/", (response) => Debug.Log(response));
 	}
 }
