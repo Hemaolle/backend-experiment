@@ -11,8 +11,20 @@ public class Api {
         Coroutiner.RunCoroutine(RequestCoroutine(resource, callback));
     }
 
+    public static void Request(string resource, WWWForm form, Action<string> callback)
+    {
+        Coroutiner.RunCoroutine(RequestCoroutine(resource, form, callback));
+    }
+
     private static IEnumerator RequestCoroutine(string resource, Action<string> callback) {
-        var www = new WWW(serverUrl + resource);
+        yield return RequestCoroutine(new WWW(serverUrl + resource), callback);
+    }
+
+    private static IEnumerator RequestCoroutine(string resource, WWWForm form, Action<string> callback) {
+        yield return RequestCoroutine(new WWW(serverUrl + resource, form), callback);
+    }
+
+    private static IEnumerator RequestCoroutine(WWW www, Action<string> callback) {
         yield return www;
         callback(www.text);
     }
