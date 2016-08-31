@@ -8,8 +8,18 @@ public class Api {
     private static string serverUrl = "http://127.0.0.1:5000";
     private static Dictionary<string, string> headers = new Dictionary<string, string>();
 
-    static Api() {
-        headers.Add("Cookie", "sessionToken=0504625166");
+    private static string username;
+    public static string Username
+    {
+        get
+        {
+            return username;
+        }
+        set
+        {
+            username = value;
+            headers["username"] = value;
+        }
     }
 
     public static void Request(string resource, Action<string> callback)
